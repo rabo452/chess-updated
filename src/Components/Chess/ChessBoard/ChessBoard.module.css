@@ -1,0 +1,40 @@
+.chess-board-box {
+    width: calc((60px * 9) + 10px);
+    height: calc(60px * 9);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.chess-board {
+    width: calc(60px * 8);
+    height: calc(60px * 8);
+    border: 2px solid black;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.column-rows-count {
+    width: calc(60px * 1);
+    height: calc(60px * 8);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.row-rows-letters {
+    width: calc(60px * 9);
+    padding: 0;
+    padding-left: 60px;
+    height: 60px;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+}
+

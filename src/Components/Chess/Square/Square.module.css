@@ -1,0 +1,104 @@
+.square {
+    width: 60px;
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 3em;
+}
+
+.black {
+    background: grey;
+    cursor: pointer;
+}
+
+.white {
+    background: white;
+    cursor: pointer;
+}
+
+.square-text {
+    color: black;
+    font-size: 1.4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+}
+
+.selected {
+    outline: .5px solid black;
+}
+
+.beaten-field.white {
+    background: rgb(0, 255, 106);
+}
+
+.beaten-field.black {
+    background: rgb(1, 145, 28);
+}
+
+.captured {
+    background: red;
+}
+
+.figure-selected {
+    background: rgb(220, 151, 23);
+}
+
+
+/* figures classes */
+
+.white-rook::after {
+    content: '♖';
+}
+
+.white-elephant::after {
+    content: '♗';
+}
+
+.white-knight::after {
+    content: '♘';
+}
+
+.white-pawn::after {
+    content: '♙';
+}
+
+.white-queen::after {
+    content: '♕';
+}
+
+.white-king::after {
+    content: '♔';
+}
+
+
+
+.black-king::after {
+    content: '♚';
+}
+
+.black-queen::after {
+    content: '♛';
+}
+
+.black-rook::after {
+    content: '♜';
+}
+
+.black-elephant::after {
+    content: '♝';
+}
+
+.black-knight::after {
+    content: '♞';
+}
+
+.black-pawn::after {
+    content: '♟︎'
+}
+
