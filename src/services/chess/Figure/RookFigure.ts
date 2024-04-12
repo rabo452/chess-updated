@@ -36,9 +36,9 @@ export default class RookFigure extends BaseFigure {
         for (var i = 0; i < algoritms.length; i++) {
             var algorithm: Function = algoritms[i];
 
-            for (var y = 1; y < 7; y++) {
+            for (var y = 1; y < 8; y++) {
                 var temp_row: number, temp_column: number;
-                [temp_row, temp_column] = algorithm(row, column, i);
+                [temp_row, temp_column] = algorithm(row, column, y);
                 try {
                     var toSquare = new BoardSquare(temp_row, temp_column);
                     var toFigure = board.getBoardFigure(toSquare);

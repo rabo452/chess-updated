@@ -112,9 +112,9 @@ export default class Board {
 
     public copyBoard(): Board {
         var newboardFigures: BaseFigure[][] = [];
-        for (var row_i = 0; row_i <= this.boardFigures.length; row_i++) {
+        for (var row_i = 0; row_i < this.boardFigures.length; row_i++) {
             newboardFigures.push([]);
-            for (var column_i = 0; column_i <= this.boardFigures.length; column_i++) {
+            for (var column_i = 0; column_i < this.boardFigures.length; column_i++) {
                 newboardFigures[row_i][column_i] = this.boardFigures[row_i][column_i].getCopy();
             }
         }

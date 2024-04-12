@@ -8,24 +8,18 @@ import QueenFigure from "services/chess/Figure/QueenFigure";
 import RookFigure from "services/chess/Figure/RookFigure";
 import SquareFigure from "services/chess/Figure/SquareFigure";
 import Team from "services/chess/Team";
-
-const styles = require("./Square.module.css");
-
-enum SquareColor {
-    White = 1,
-    Black = 2,
-}
+import styles from "./Square.module.css";
 
 type SquareProps = {
-    color: SquareColor,
+    color: string,
     onClick: () => void,
-    figure: BaseFigure
+    figure: BaseFigure,
 }
 
 const Square = ({color, onClick, figure}: SquareProps) => {
     const FigureCssClassFactory = (figure: BaseFigure): string => {
         if (figure instanceof SquareFigure) {
-            return "";
+            return "square";
         }
 
         let figureCss: string = "";
@@ -38,24 +32,26 @@ const Square = ({color, onClick, figure}: SquareProps) => {
         }else if (figure instanceof ElephantFigure) {
             figureCss = "elephant";
         }else if (figure instanceof QueenFigure) {
-            figureCss = "quenn";
+            figureCss = "queen";
         }else if (figure instanceof KnightFigure) {
             figureCss = "knight";
         }else if (figure instanceof RookFigure) {
             figureCss = "rook";
         }else {
-            throw new Error("such the figure doesn't exist!");
+            throw new Error("such a figure doesn't exist!");
         }
 
         return `${team}-${figureCss}`;
     }
 
     return (
-        <div className={`${styles.square} ${color == SquareColor.Black ? styles.black : styles.white} ${styles[FigureCssClassFactory(figure)]}`} 
-            onClick={onClick}/>
+        <div className={`${styles.square} 
+            ${styles[FigureCssClassFactory(figure)]}`} 
+            onClick={onClick}
+            style={{backgroundColor: color}}
+        />
     );
 };
 
 export default Square;
-export { SquareColor };
 export type { SquareProps };

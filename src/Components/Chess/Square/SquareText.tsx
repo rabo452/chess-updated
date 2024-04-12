@@ -1,5 +1,5 @@
 import React from "react";
-const styles = require("./Square.module.css");
+import styles from "./Square.module.css";
 
 type SquareTextPropsType = {
     text: string
@@ -7,7 +7,7 @@ type SquareTextPropsType = {
 
 const SquareText = ({text}: SquareTextPropsType) => {
     return (
-        <div className={`${styles.square}`} >
+        <div className={` ${styles.square} ${styles['square-text']}`} >
             {text}
         </div>
     );

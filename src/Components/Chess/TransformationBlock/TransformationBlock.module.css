@@ -1,0 +1,5 @@
+.transofrmation-block {
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+}

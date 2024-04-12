@@ -9,6 +9,11 @@ export default class ShortCastlingAction implements Action {
     constructor(castlingRow: number) {
         this.castlingRow = castlingRow;
     }
+
+    getActionSquare(): BoardSquare {
+        return new BoardSquare(this.castlingRow, 6);
+    }
+    
     setPossibleBeating(board: Board): void {
         board.getBoardFigure(new BoardSquare(this.castlingRow, 6)).isBeaten = true;
     }

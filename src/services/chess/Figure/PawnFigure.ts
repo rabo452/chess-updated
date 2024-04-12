@@ -11,6 +11,7 @@ import TurnsCount from "../TurnsCount";
 import BoardSquare from "../BoardSquare";
 import MoveAction from "../Action/MoveAction";
 import PawnBeatAsideAction from "../Action/PawnBeatAsideAction";
+import TransformationAction from "../Action/TransformationAction";
 
 export default class PawnFigure extends BaseFigure {
     isAbleToBeTransformed = true;
@@ -25,12 +26,18 @@ export default class PawnFigure extends BaseFigure {
 
     public getActions(board: Board): Action[] {
         let forwardMoveNumber = this.team === Team.White ? -1 : 1;
+        let transformationRow = this.team === Team.Black ? 7 : 0;
         let row = this.boardSquare.row;
         let column = this.boardSquare.column;
         let actions: Action[] = [];
+
+        if (row === transformationRow) {
+            return actions;
+        }
         
         let nextFigure = board.getBoardFigure(new BoardSquare(row + forwardMoveNumber, column));
         if (nextFigure.team === Team.Neutral) {
+            // field there transofrmation can be made
             actions.push(new MoveAction(this.boardSquare, new BoardSquare(row + forwardMoveNumber, column)));
 
             if (this._turnsMade == 0) {
@@ -67,11 +74,18 @@ export default class PawnFigure extends BaseFigure {
             }
         }
 
+        let _actions = actions;
+        actions = [];
+        for (let action of _actions) {
+            actions.push(action.getActionSquare().row === transformationRow ? new TransformationAction(this.boardSquare, action.getActionSquare()) : action);
+        }
+
         return actions;
     }
 
-    get transformFigures(): Function[] {
-        return [KnightFigure, RookFigure, ElephantFigure, QueenFigure];
+    get transformFigures(): BaseFigure[] {
+        return [ new KnightFigure(this.boardSquare, this.team), new RookFigure(this.boardSquare, this.team),
+                 new ElephantFigure(this.boardSquare, this.team), new QueenFigure(this.boardSquare, this.team)];
     }
 
     afterAction(action: Action) {

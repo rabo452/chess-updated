@@ -8,8 +8,7 @@ const DoesAnyProtectedActionExist = (team: Team, board: Board): Boolean => {
         if (figure.team !== team) continue;
 
         for (let action of figure.getActions(board)) {
-            let copyBoard = board.copyBoard();
-            if (isActionProtected(action, team, copyBoard)) {
+            if (isActionProtected(action, team, board)) {
                 return true;
             }
         }
