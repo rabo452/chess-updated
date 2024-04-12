@@ -33,7 +33,7 @@ export default abstract class BaseFigure {
         return;
     }
 
-    public get transformFigures(): Function[] {
+    public get transformFigures(): BaseFigure[] {
         return [];
     }
 

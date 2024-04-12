@@ -8,24 +8,12 @@
     align-items: center;
     color: black;
     font-size: 3em;
-}
-
-.black {
-    background: grey;
-    cursor: pointer;
-}
-
-.white {
-    background: white;
     cursor: pointer;
 }
 
 .square-text {
     color: black;
-    font-size: 1.4em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 3em;
     cursor: default;
 }
 

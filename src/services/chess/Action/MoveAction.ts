@@ -12,6 +12,9 @@ class MoveAction implements Action {
         this.fromSquare = fromSquare;
         this.toSquare = toSquare;
     }
+    getActionSquare(): BoardSquare {
+        return this.toSquare;
+    }
 
     setPossibleBeating(board: Board): void {
         var toFigure = board.getBoardFigure(this.toSquare);

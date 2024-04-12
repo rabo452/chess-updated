@@ -1,10 +1,11 @@
 import React from "react";
 import ChessBoard from "./Components/Chess/ChessBoard/ChessBoard";
+import Team from "services/chess/Team";
 
 const App = () => {
     return (
         <div>
-            <ChessBoard/>
+            <ChessBoard playerView={Team.Black}/>
         </div>
     );
 }

@@ -9,6 +9,9 @@ export default class LongCastlingAction implements Action {
     constructor(castlingRow: number) {
         this.castlingRow = castlingRow;
     }
+    getActionSquare(): BoardSquare {
+        return new BoardSquare(this.castlingRow, 2);
+    }
     setPossibleBeating(board: Board): void {
         board.getBoardFigure(new BoardSquare(this.castlingRow, 2)).isBeaten = true;
     }
