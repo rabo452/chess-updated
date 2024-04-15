@@ -19,7 +19,7 @@ import TransformationAction from "services/chess/Action/TransformationAction";
 import Action from "services/chess/Action/Action";
 
 
-const ChessBoard = ({playerView = Team.White}: {playerView: Team }) => {
+const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playerView: Team, winCallback: (team: Team) => void, drawCallback: (team: Team) => void}) => {
     let [visualBoard, setVisualBoard] = useState(new VisualBoard());
     let [board, setBoard] = useState(new Board());
     let [teamTurn, SetTeamTurn] = useState(Team.White);
@@ -82,10 +82,11 @@ const ChessBoard = ({playerView = Team.White}: {playerView: Team }) => {
             setVisualBoard(new VisualBoard());
             setBeatenSquares(getOppositeTeam(teamTurn), board);
 
+            
             if (board.getKing(teamTurn).isBeaten) {
-                console.log(`${Team.White === getOppositeTeam(teamTurn) ? "white" : "black"} won!`);
+                winCallback(getOppositeTeam(teamTurn));
             }else{
-                console.log(`${Team.White === teamTurn ? "white" : "black"} has no moves to do, it is a draw`);
+                drawCallback(teamTurn);
             }
              
         }
