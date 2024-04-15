@@ -132,11 +132,13 @@ const ChessBoard = ({playerView = Team.White}: {playerView: Team }) => {
             }   
         }
 
-        if (figure.team === getOppositeTeam(teamTurn)) {
+        if (figure.team === getOppositeTeam(teamTurn) || figure.team === Team.Neutral) {
             setVisualBoard(newVisualBoard);
             return;
         }
-
+        
+        clearBeatenSquares(board);        
+        setBeatenSquares(getOppositeTeam(teamTurn), board);
         for (let action of figure.getActions(board)) {
             if (!isActionProtected(action, figure.team, board)) {
                 continue;
