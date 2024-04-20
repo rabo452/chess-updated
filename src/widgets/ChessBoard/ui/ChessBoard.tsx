@@ -1,22 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Square from "Components/Chess/Square/Square";
-import SquareText from "Components/Chess/Square/SquareText";
-import Board from "services/chess/Board";
+import {SquareText, Square} from "entities/Square";
 import styles from "./ChessBoard.module.css";
-import BaseFigure from "services/chess/Figure/BaseFigure";
-import Team from "services/chess/Team";
-import DoesAnyProtectedActionExist from "services/chess/DoesAnyProtectedActionExist";
-import BoardSquare from "services/chess/BoardSquare";
-import isActionProtected from "services/chess/isActionProtected";
-import TurnsCount from "services/chess/TurnsCount";
-import setBeatenSquares from "services/chess/setBeatenSquares";
-import clearBeatenSquares from "services/chess/clearBeatenSquares";
 import VisualElement from "./VisualElement";
 import ChessColor from "./ChessColor";
 import VisualBoard from "./VisualBoard";
-import TransofrmationBlock from "Components/Chess/TransformationBlock/TransformationBlock";
-import TransformationAction from "services/chess/Action/TransformationAction";
-import Action from "services/chess/Action/Action";
+import FigureCssClassFactory from "../lib/FigureCssClassFactory";
+import { Action, BaseFigure, Board, BoardSquare, clearBeatenSquares, DoesAnyProtectedActionExist, isActionProtected, setBeatenSquares, Team, TransformationAction, TurnsCount } from "entities/ChessFigures";
+import { TransformationBlock } from "./TransformationBlock";
 
 
 const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playerView: Team, winCallback: (team: Team) => void, drawCallback: (team: Team) => void}) => {
@@ -62,8 +52,9 @@ const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playe
             }
         }
 
+        // usual handler 
         return () => {
-            // usual handler 
+            
             action.doAction(board);
             figure.afterAction(action);
             TurnsCount.increase();
@@ -99,9 +90,9 @@ const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playe
         let king = board.getKing(teamTurn);
         if (king.isBeaten) {
             let kingVisualElement = visualBoard.getVisualElement(king.boardSquare);
-            if (kingVisualElement.color !== ChessColor.blue && kingVisualElement.color !== ChessColor.red) {
+            if (kingVisualElement.color !== ChessColor.selected && kingVisualElement.color !== ChessColor.checked) {
                 let newVisualBoard = visualBoard.copyBoard();
-                newVisualBoard.setVisualElement(king.boardSquare, new VisualElement(ChessColor.red, kingVisualElement.onClick));
+                newVisualBoard.setVisualElement(king.boardSquare, new VisualElement(ChessColor.checked, kingVisualElement.onClick));
                 setVisualBoard(newVisualBoard);
             }
         }
@@ -120,7 +111,7 @@ const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playe
 
     const squareOnClickHandler = (figure: BaseFigure) => {
         let newVisualBoard = new VisualBoard();
-        let selectedSquare = new VisualElement(ChessColor.blue);
+        let selectedSquare = new VisualElement(ChessColor.selected);
 
         newVisualBoard.setVisualElement(figure.boardSquare, selectedSquare);
         // this line of code saves the visualization of king square
@@ -128,7 +119,7 @@ const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playe
         // without this code, the red color of king square blinks
         if (figure !== board.getKing(teamTurn)) {
             let king = board.getKing(teamTurn);
-            if (visualBoard.getVisualElement(king.boardSquare).color !== ChessColor.blue) {
+            if (visualBoard.getVisualElement(king.boardSquare).color !== ChessColor.selected) {
                 newVisualBoard.setVisualElement(board.getKing(teamTurn).boardSquare, visualBoard.getVisualElement(king.boardSquare));
             }   
         }
@@ -169,7 +160,7 @@ const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playe
                     if (!boardActive) return;
                     visualElement.onClick ? visualElement.onClick() : squareOnClickHandler(figure); 
                 }}
-                figure={figure}
+                className={FigureCssClassFactory(figure)}
             />
         );
     });
@@ -186,7 +177,7 @@ const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playe
     let transformationElements = (transformationObject.column === -1 ? [] : new Array(8)).fill(null).map((_, column) => {
         if (transformationObject.column === column) {
             return (
-                <TransofrmationBlock
+                <TransformationBlock
                     key={column} 
                     figures={transformationObject.figures} 
                     onClick={(figure) => {

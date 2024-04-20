@@ -1,0 +1,7 @@
+{
+    "PlayerCommunicationBlock": {
+        "time-left": "Time left",
+        "surrender": "surrender",
+        "draw": "propose draw"
+    }
+}

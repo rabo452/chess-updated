@@ -1,0 +1,22 @@
+.comm-block-container {
+    width: 330px;
+    padding: 15px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(173, 69, 44);
+    border-radius: 20px;
+    box-sizing: border-box;
+}
+
+.comm-block-container .timer {
+    font-size: 1.5em;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.comm-block-container .buttons-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

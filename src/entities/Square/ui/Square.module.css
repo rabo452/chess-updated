@@ -17,29 +17,8 @@
     cursor: default;
 }
 
-.selected {
-    outline: .5px solid black;
-}
-
-.beaten-field.white {
-    background: rgb(0, 255, 106);
-}
-
-.beaten-field.black {
-    background: rgb(1, 145, 28);
-}
-
-.captured {
-    background: red;
-}
-
-.figure-selected {
-    background: rgb(220, 151, 23);
-}
-
 
 /* figures classes */
-
 .white-rook::after {
     content: '♖';
 }

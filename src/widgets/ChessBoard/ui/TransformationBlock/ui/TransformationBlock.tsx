@@ -1,9 +1,10 @@
-import BaseFigure from "services/chess/Figure/BaseFigure";
 import styles from "./TransformationBlock.module.css";
-import Square from "Components/Chess/Square/Square";
-import ChessColor from "Components/Chess/ChessBoard/ChessColor";
+import Square from "entities/Square/ui/Square";
+import ChessColor from "widgets/ChessBoard/ui/ChessColor";
+import FigureCssClassFactory from "widgets/ChessBoard/lib/FigureCssClassFactory";
+import { BaseFigure } from "entities/ChessFigures";
 
-const TransofrmationBlock = ({figures, onClick}: {figures: BaseFigure[], onClick: ((figure: BaseFigure) => void)}) => {
+const TransformationBlock = ({figures, onClick}: {figures: BaseFigure[], onClick: ((figure: BaseFigure) => void)}) => {
     return (
         <div className={styles['transofrmation-block']}>
             {figures.map((figure, index) => {
@@ -14,7 +15,7 @@ const TransofrmationBlock = ({figures, onClick}: {figures: BaseFigure[], onClick
                         onClick={() => {
                             onClick(figure);
                         }} 
-                        figure={figure}
+                        className={FigureCssClassFactory(figure)}
                     />
                 )
             })}
@@ -22,4 +23,4 @@ const TransofrmationBlock = ({figures, onClick}: {figures: BaseFigure[], onClick
     );
 }
 
-export default TransofrmationBlock;
+export default TransformationBlock;

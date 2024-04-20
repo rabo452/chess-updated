@@ -1,0 +1,7 @@
+{
+    "PlayerCommunicationBlock": {
+        "time-left": "Времени осталось",
+        "surrender": "сдаться",
+        "draw": "предложить ничью"
+    }
+}

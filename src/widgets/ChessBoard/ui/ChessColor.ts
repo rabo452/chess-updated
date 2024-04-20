@@ -1,8 +1,8 @@
 enum ChessColor {
     lightGreen = "#02f041",
     darkGreen = "#32633f",
-    blue = "blue",
-    red = "red",
+    selected = "blue",
+    checked = "red",
     black = "grey",
     white = "white"
 }

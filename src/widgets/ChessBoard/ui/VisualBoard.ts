@@ -1,4 +1,5 @@
-import BoardSquare from "services/chess/BoardSquare";
+
+import { BoardSquare } from "entities/ChessFigures";
 import ChessColor from "./ChessColor";
 import VisualElement from "./VisualElement";
 
