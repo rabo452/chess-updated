@@ -1,6 +1,6 @@
 import styles from "./TransformationBlock.module.css";
 import Square from "entities/Square/ui/Square";
-import ChessColor from "widgets/ChessBoard/ui/ChessColor";
+import ChessColor from "widgets/ChessBoard/models/ChessColor";
 import FigureCssClassFactory from "widgets/ChessBoard/lib/FigureCssClassFactory";
 import { BaseFigure } from "entities/ChessFigures";
 

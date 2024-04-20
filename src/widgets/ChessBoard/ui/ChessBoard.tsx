@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {SquareText, Square} from "entities/Square";
 import styles from "./ChessBoard.module.css";
-import VisualElement from "./VisualElement";
-import ChessColor from "./ChessColor";
-import VisualBoard from "./VisualBoard";
+import VisualElement from "../models/VisualElement";
+import ChessColor from "../models/ChessColor";
+import VisualBoard from "../models/VisualBoard";
 import FigureCssClassFactory from "../lib/FigureCssClassFactory";
 import { Action, BaseFigure, Board, BoardSquare, clearBeatenSquares, DoesAnyProtectedActionExist, isActionProtected, setBeatenSquares, Team, TransformationAction, TurnsCount } from "entities/ChessFigures";
 import { TransformationBlock } from "./TransformationBlock";

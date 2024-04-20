@@ -3,5 +3,8 @@
         "time-left": "Часу залишилось",
         "surrender": "сдатися",
         "draw": "запропонувати нічию"
+    },
+    "LoadingScreen": {
+        "wait": "Page is loading, please wait..."
     }
 }

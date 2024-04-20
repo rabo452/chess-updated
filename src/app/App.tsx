@@ -1,5 +1,6 @@
 import { AppProvider } from "./providers";
 import { AppRouter } from "./routes";
+import "./styles/index.css";
 
 const App = () => {
     return (
