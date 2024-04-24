@@ -1,22 +1,29 @@
 .comm-block-container {
-    width: 330px;
+    width: 400px;
     padding: 15px;
-    color: rgb(255, 255, 255);
-    background-color: rgb(173, 69, 44);
+    background-color: rgb(82, 82, 82);
     border-radius: 20px;
-    box-sizing: border-box;
 }
 
-.comm-block-container .timer {
-    font-size: 1.5em;
-    text-align: center;
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-.comm-block-container .buttons-wrapper {
+.players-block-wrap {
     width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+}
+
+.buttons-wrap {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
     justify-content: space-around;
+}
+
+.btn {
+    background-color: white;
+    color: black;
+    padding: 15px;
+    width: 40%;
+    font-size: 1.1em;
+    cursor: pointer;
 }

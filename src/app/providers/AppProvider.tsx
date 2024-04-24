@@ -6,8 +6,10 @@ import global_en from "app/localization/en.json";
 import global_uk from "app/localization/uk.json";
 import global_ru from "app/localization/ru.json";
 import { Provider } from "react-redux";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-export const AppProvider: FC<{readonly children: JSX.Element}> = ({children}) => {
+const queryClient = new QueryClient();
+
     i18next.init({
         interpolation: {escapeValue: false},
         lng: "en",
@@ -24,11 +26,14 @@ export const AppProvider: FC<{readonly children: JSX.Element}> = ({children}) =>
         } 
     })
 
+export const AppProvider: FC<{readonly children: JSX.Element}> = ({children}) => {
     return (
-        <I18nextProvider i18n={i18next}>
-            <Provider store={store}>
-                {children}
-            </Provider>
-        </I18nextProvider>
+        <QueryClientProvider client={queryClient}>
+            <I18nextProvider i18n={i18next}>
+                <Provider store={store}>
+                    {children}
+                </Provider>
+            </I18nextProvider>
+        </QueryClientProvider>
     )
 }

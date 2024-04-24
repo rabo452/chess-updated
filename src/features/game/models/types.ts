@@ -1,10 +1,9 @@
 import { Team } from "entities/ChessFigures"
 
 type stateType = {
-    teamTurn: Team,
+    playerTurn: string,
     winner: null | string,
-    whiteSeconds: number,
-    blackSeconds: number
+    isGameOver: boolean
 }
 
 export type {stateType}

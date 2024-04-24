@@ -7,6 +7,8 @@ import VisualBoard from "../models/VisualBoard";
 import FigureCssClassFactory from "../lib/FigureCssClassFactory";
 import { Action, BaseFigure, Board, BoardSquare, clearBeatenSquares, DoesAnyProtectedActionExist, isActionProtected, setBeatenSquares, Team, TransformationAction, TurnsCount } from "entities/ChessFigures";
 import { TransformationBlock } from "./TransformationBlock";
+import { FigureToParamsFactory } from "../lib/FigureToParamsFactory";
+import { TransformBoardToParams } from "../api/TransformBoardToParams";
 
 
 const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playerView: Team, winCallback: (team: Team) => void, drawCallback: (team: Team) => void}) => {

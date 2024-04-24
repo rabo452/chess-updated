@@ -1,0 +1,19 @@
+.header-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: rgba(46, 145, 211, 0.5);
+}
+
+.logo-block {
+    font-size: 1.6em;
+}
+
+.auth-block {
+    display: flex;
+    flex-direction: row;
+}

@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { chessSlice } from 'features/chess'
+import { GameSlice } from 'features/game'
 import { useDispatch, useSelector } from 'react-redux'
 // ...
 
 var rootReducer = combineReducers({
-    chess: chessSlice.reducer
+    game: GameSlice.reducer
 })
 
 export const store = configureStore({

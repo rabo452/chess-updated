@@ -1,10 +1,10 @@
 {
-    "PlayerCommunicationBlock": {
-        "time-left": "Time left",
-        "surrender": "surrender",
-        "draw": "propose draw"
-    },
     "LoadingScreen": {
         "wait": "Page is loading, please wait..."
+    },
+    "ErrorUnableToConnectToServer": "Unnable to connect to server, please try again...",
+    "PlayerCommucationBlock": {
+        "propose-draw": "Propose a draw",
+        "surrender": "surrender"
     }
 }

@@ -1,11 +1,5 @@
-import { BaseFigure, Team } from "entities/ChessFigures";
-import ElephantFigure from "entities/ChessFigures/models/Figure/ElephantFigure";
-import KingFigure from "entities/ChessFigures/models/Figure/KingFigure";
-import KnightFigure from "entities/ChessFigures/models/Figure/KnightFigure";
-import PawnFigure from "entities/ChessFigures/models/Figure/PawnFigure";
-import QueenFigure from "entities/ChessFigures/models/Figure/QueenFigure";
-import RookFigure from "entities/ChessFigures/models/Figure/RookFigure";
-import SquareFigure from "entities/ChessFigures/models/Figure/SquareFigure";
+import { BaseFigure, ElephantFigure, KingFigure, KnightFigure, PawnFigure, QueenFigure, RookFigure, SquareFigure, Team } from "entities/ChessFigures";
+
 
 const FigureCssClassFactory = (figure: BaseFigure): string => {
     if (figure instanceof SquareFigure) {
