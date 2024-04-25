@@ -1,9 +1,10 @@
 import { Button } from "shared/ui/Button";
 import styles from "./Header.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthApi } from "entities/auth";
-
+ 
 export const Header = () => {
+    let navigate = useNavigate();
 
     var authBlock = !AuthApi.isAuthorizated() ? (
         <div className="auth-block">
@@ -12,15 +13,20 @@ export const Header = () => {
         </div>
     ) : (
         <div className="auth-block">
-            <Button text="log out" onClick={() => AuthApi.logout()} />
+            <Button text="log out" onClick={() => {
+                AuthApi.logout();
+                return navigate("/");
+            }} />
         </div>
     );
 
     return (
         <div className={styles['header-container']}>
-            <div className={styles["logo-block"]}>
-                CHESS.io
-            </div>
+            <Link to="/">
+                <div className={styles["logo-block"]}>
+                    CHESS.io
+                </div>
+            </Link>
 
             {authBlock}
         </div>

@@ -1,0 +1,16 @@
+.signup-form-container {
+    border: 10px solid black;
+    padding: 25px;
+    font-size: 1.1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-form-container > * {
+    margin-bottom: 15px;
+}
+
+.error-block {
+    color: red;
+    font-size: 1.2em;
+}

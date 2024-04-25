@@ -14,7 +14,7 @@ export const GameRoomList: FC<GameRoomListPropsType> = ({rooms}) => {
             <h1>Game room list:</h1>
             {rooms.map((room) => {
                 return (
-                    <div className={styles['room-block']}>
+                    <div key={room.id} className={styles['room-block']}>
                         <div>Room: {room.name}</div>
                         <div>player: {room.player}</div>
                         <div><Link to={`/game-room/${room.id}`}> <Button text="join room" /></Link> </div>

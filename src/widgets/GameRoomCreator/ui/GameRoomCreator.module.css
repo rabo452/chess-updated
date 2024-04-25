@@ -1,0 +1,10 @@
+.game-room-creator-contrainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 15px;
+}
+
+.game-room-creator-contrainer > * {
+    margin-left: 15px;
+}

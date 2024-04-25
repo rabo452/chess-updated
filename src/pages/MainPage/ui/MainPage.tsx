@@ -1,6 +1,7 @@
 import { GameApi, GameRoom } from "features/game"
 import { useQuery } from "react-query"
 import { LoadingScreen } from "shared/ui/LoadingScreen"
+import { GameRoomCreator } from "widgets/GameRoomCreator"
 import { GameRoomList } from "widgets/GameRoomList"
 import { Header } from "widgets/Header"
 
@@ -22,11 +23,10 @@ export const MainPage = () => {
         return <LoadingScreen loadingText="service doesn't work, please, try another time" />
     }
 
-    console.log(data);
-
     return (
         <div>
             <Header />
+            <GameRoomCreator />
             <GameRoomList rooms={data.rooms} />
         </div>
     )

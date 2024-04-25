@@ -50,7 +50,7 @@ export class AuthApi {
             password
         });
 
-        var tokens: Tokens = response.data;
+        var tokens: Tokens = response.data as Tokens;
         return tokens;
     }
 
@@ -60,7 +60,7 @@ export class AuthApi {
             password
         });
 
-        var tokens: Tokens = response.data;
+        var tokens: Tokens = response.data as Tokens;
         return tokens;
     }
 
