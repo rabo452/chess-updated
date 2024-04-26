@@ -5,6 +5,10 @@ export default class TurnsCount {
         return this._turns;
     }
 
+    public static set turns(__turns: number) {
+        this._turns = __turns;
+    } 
+
     public static increase(): void {
         this._turns += 1;
     }

@@ -3,4 +3,8 @@ type Tokens = {
     refresh: string 
 }
 
-export type {Tokens}
+type User = {
+    username: string
+}
+
+export type {Tokens, User}

@@ -5,7 +5,6 @@ import secondsToString from "../lib/secondsToString";
 import { useAppDispatch, useAppSelector } from "app/store";
 import { PlayerBlock } from "./PlayerBlock";
 import { setWinner, setGameOver } from "features/game";
-import { clearInterval } from "timers";
 
 type PlayerCommunicationBlockPropsType = {
     player1Seconds: number, 
@@ -72,11 +71,6 @@ const PlayerCommunicationBlock: FC<PlayerCommunicationBlockPropsType> = ({player
                     time={secondsToString(_player2Seconds)}
                     avatar_src="https://img.icons8.com/?size=256&id=gOpi8LmH825f&format=png"
                 />
-            </div>
-
-            <div className={styles['buttons-wrap']}>
-                <input type="button" value="surrender" className={styles['btn']} />
-                <input type="button" value="propose a draw" className={styles['btn']} />
             </div>
         </div>
     )

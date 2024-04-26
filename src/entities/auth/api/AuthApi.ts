@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
-import { AxiosClient } from "shared/api";
-import { Tokens } from "./types";
+import { AxiosClient, baseURL } from "shared/api";
+import { Tokens, User } from "./types";
 import { TokenStorage } from "../models/TokenStorage";
 
 AxiosClient.interceptors.request.use((config) => {
@@ -13,21 +13,21 @@ AxiosClient.interceptors.request.use((config) => {
 
 AxiosClient.interceptors.response.use((res) => res, async (error: AxiosError) => {
     const config = error.config;
-    if (error.response?.status == 401 && config && !(config as any).isRetry) {
+    const refreshEndPoint = `${baseURL}/api/token/refresh`;
+
+    if (error.response?.status == 401 && config && error.request.responseURL != refreshEndPoint) {
         try {
             var refresh_token = TokenStorage.refreshToken;
             (config as any).isRetry = true;
             var access = await AuthApi.refreshAcessToken(refresh_token);
             TokenStorage.accessToken = access;
 
-            AxiosClient.request(config);
-
+            return AxiosClient.request(config);
         }catch(e) {
-            return error;
+            AuthApi.logout();
         }
     }
 
-    return error;
 });
 
 export class AuthApi {
@@ -72,6 +72,13 @@ export class AuthApi {
         var access_token: string = response.data['access'];
         return access_token;
     }
+
+    static async getSelfUser(): Promise<User> {
+        var response = await AxiosClient.get(`/api/get-user`);
+
+
+        return response.data as User;
+    } 
 }
 
 export {AxiosClient}

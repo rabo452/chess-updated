@@ -1,13 +1,15 @@
-import { useParams } from "react-router-dom";
-import { Header } from "widgets/Header";
+import { useNavigate, useParams } from "react-router-dom";
 import { Page404 } from "pages/Page404";
 import { useQuery } from "react-query";
 import { GameApi } from "features/game";
-import styles from "./GameRoomPage.module.css";
 import { LoadingScreen } from "shared/ui/LoadingScreen";
+import { useEffect } from "react";
+import { AuthApi, TokenStorage } from "entities/auth";
+import {GameRoomWebSocket} from "../api/GameRoomWebSocket";
 
 export const GameRoomPage = () => {
     let { roomId } = useParams();
+    let navigate = useNavigate();
 
     let {isLoading, isError, data} = useQuery({
         queryFn: async () => {
@@ -16,19 +18,35 @@ export const GameRoomPage = () => {
             }
 
             var doExist = await GameApi.doesGameRoomExist(Number(roomId));
-            return doExist;
+            return {
+                doExist
+            };
         }
     });
+
+    const onGameCreated = (gameId: number) => {
+        navigate(`/chess-game/${gameId}/`);
+    }
+
+    useEffect(() => {
+        if (!AuthApi.isAuthorizated()) {
+            return;
+        }
+
+        var ws = new GameRoomWebSocket(Number(roomId), onGameCreated, TokenStorage.accessToken);
+        return () => {
+            ws.closeWS();
+        }
+    }, []);
 
     if (isLoading) {
         return <LoadingScreen loadingText="The room is loading" />
     }
 
-    if (!data) {
+    if (!data || !data.doExist) {
         return <Page404 />
     }
 
-    return (
-        <div>{roomId}</div>
-    )
+    return <LoadingScreen loadingText="awaiting a player to connect..." />
+    
 }

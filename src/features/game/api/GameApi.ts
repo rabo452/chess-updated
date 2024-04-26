@@ -22,4 +22,5 @@ export class GameApi {
         var response = await AxiosClient.get(`api/chess/does-room-exist?roomId=${roomId}`);
         return response.data.exist;
     }
+
 }

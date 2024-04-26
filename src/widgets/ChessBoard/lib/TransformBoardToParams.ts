@@ -1,7 +1,6 @@
 import { BaseFigure, Board } from "entities/ChessFigures";
-import { AxiosClient } from "shared/api";
-import { FigureParams } from "../lib/types";
-import { FigureToParamsFactory } from "../lib/FigureToParamsFactory";
+import { FigureParams } from "./types";
+import { FigureToParamsFactory } from "./FigureToParamsFactory";
 
 export const TransformBoardToParams = (board: Board): FigureParams[][] => {
     let result: FigureParams[][] = [];

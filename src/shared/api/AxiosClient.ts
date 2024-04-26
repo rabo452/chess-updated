@@ -1,6 +1,5 @@
 import axios, { AxiosError } from "axios";
-
-const baseURL = "http://localhost:8000";
+import { baseURL } from "./consts";
 
 const AxiosClient = axios.create({
     baseURL,
@@ -10,4 +9,4 @@ const AxiosClient = axios.create({
     }
 })
 
-export {AxiosClient};
+export {AxiosClient, baseURL};

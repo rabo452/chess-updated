@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {SquareText, Square} from "entities/Square";
 import styles from "./ChessBoard.module.css";
 import VisualElement from "../models/VisualElement";
@@ -7,11 +7,18 @@ import VisualBoard from "../models/VisualBoard";
 import FigureCssClassFactory from "../lib/FigureCssClassFactory";
 import { Action, BaseFigure, Board, BoardSquare, clearBeatenSquares, DoesAnyProtectedActionExist, isActionProtected, setBeatenSquares, Team, TransformationAction, TurnsCount } from "entities/ChessFigures";
 import { TransformationBlock } from "./TransformationBlock";
-import { FigureToParamsFactory } from "../lib/FigureToParamsFactory";
-import { TransformBoardToParams } from "../api/TransformBoardToParams";
+import { ChessGameWebSocket } from "../api/ChessGameWebSocket";
+import { GameParams } from "../api/types";
 
+type ChessBoardPropsType = {
+    winCallback: (team: Team) => void, 
+    drawCallback: (team: Team) => void,
+    gameId: number
+}
 
-const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playerView: Team, winCallback: (team: Team) => void, drawCallback: (team: Team) => void}) => {
+const ChessBoard = ({winCallback, drawCallback, gameId}: ChessBoardPropsType) => {
+    let ws: React.MutableRefObject<ChessGameWebSocket | undefined> = useRef();
+    let [playerTeam, setPlayerTeam] = useState(Team.White);
     let [visualBoard, setVisualBoard] = useState(new VisualBoard());
     let [board, setBoard] = useState(new Board());
     let [teamTurn, SetTeamTurn] = useState(Team.White);
@@ -23,6 +30,7 @@ const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playe
             figures: []
         };
     });
+    let [isLoading, setLoading] = useState(true);
 
     const actionOnClickHandlerFactory = (action: Action, figure: BaseFigure, board: Board): (() => void) => {
         if (action instanceof TransformationAction) {
@@ -44,10 +52,8 @@ const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playe
                             onClick: null,
                             figures: []
                         });
-
-                        SetTeamTurn(getOppositeTeam(teamTurn));
-                        setBoard(board.copyBoard());
-                        setVisualBoard(new VisualBoard());
+                        
+                        ws.current?.saveBoard(board.copyBoard());
                     },
                     figures: figure.transformFigures
                 });
@@ -61,9 +67,7 @@ const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playe
             figure.afterAction(action);
             TurnsCount.increase();
 
-            SetTeamTurn(getOppositeTeam(teamTurn));
-            setBoard(board.copyBoard());
-            setVisualBoard(new VisualBoard());
+            ws.current?.saveBoard(board.copyBoard());
         }
     }
 
@@ -81,7 +85,6 @@ const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playe
             }else{
                 drawCallback(teamTurn);
             }
-             
         }
     }, [teamTurn]);
 
@@ -100,6 +103,25 @@ const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playe
         }
         clearBeatenSquares(board);
     }, [visualBoard]);
+
+    // connection logic
+    useEffect(() => {
+        let updateParams = (params: GameParams) => {
+            console.log(params);
+
+            TurnsCount.turns = params.turnCount;
+            setPlayerTeam(params.playerTeam);
+            SetTeamTurn(params.playerTurn); 
+            setLoading(false); 
+            setBoard(params.board);
+            setVisualBoard(new VisualBoard());
+        }
+
+        ws.current = new ChessGameWebSocket(gameId, updateParams);
+        return () => {
+            ws.current?.closeWS();
+        }
+    }, []);
 
     const isGameOver = () => {
         clearBeatenSquares(board);
@@ -126,7 +148,7 @@ const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playe
             }   
         }
 
-        if (figure.team === getOppositeTeam(teamTurn) || figure.team === Team.Neutral) {
+        if (teamTurn !== playerTeam || figure.team !== playerTeam) {
             setVisualBoard(newVisualBoard);
             return;
         }
@@ -154,6 +176,7 @@ const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playe
         const column = index % 8; 
         const color = visualElement.color;
         const figure = board.getBoardFigure(new BoardSquare(row, column));
+
         return (
             <Square
                 key={index}
@@ -196,19 +219,23 @@ const ChessBoard = ({playerView = Team.White, winCallback, drawCallback}: {playe
         )
     });
 
+    if (isLoading) {
+        return null;
+    }
+
     return (
         <div className={styles['chess-board-box']}>
             <div className={styles['transformation-block-container']}>
-                    {(playerView === Team.White) ? transformationElements : transformationElements.reverse()}
+                    {(playerTeam === Team.White) ? transformationElements : transformationElements.reverse()}
                 </div>
 
             <div className={styles['chess-board-container']}>
                 <div className={styles['column-rows-count']}>
-                    {(playerView === Team.White) ? sideBarElements : sideBarElements.reverse()}
+                    {(playerTeam === Team.White) ? sideBarElements : sideBarElements.reverse()}
                 </div>
                 <div className={styles['chess-wrap']}>
                     <div className={styles['chess-board']}>
-                        {(playerView === Team.White) ? boardElements : boardElements.reverse()}
+                        {(playerTeam === Team.White) ? boardElements : boardElements.reverse()}
                     </div>
 
                     <div className={styles['row-rows-letters']}>
